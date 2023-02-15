@@ -6,9 +6,8 @@ import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import test.TestOuterClass.Foo
+import src.incoming.players.http_responses.HttpResponses
 import kotlin.concurrent.thread
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,12 +24,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun callFastAsync() {
         val client = OkHttpClient()
-        val request = Request.Builder().url("http://192.168.88.239:8000/").build();
-        val serializable = try {
+        val request = Request.Builder().url("http://192.168.1.65:8000/players").build();
+        try {
             val response = client.newCall(request).execute()
             val respData = response.body()!!.bytes()
-            val hi = Foo.newBuilder().mergeFrom(respData).build();
-            Log.d("resp", hi.toString())
+            val players = HttpResponses.GetPlayers
+                .newBuilder()
+                .mergeFrom(respData)
+                .build();
+            Log.d("resp", players.toString())
         } catch (err: Error) {
             Log.d("error", err.toString())
         }

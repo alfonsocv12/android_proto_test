@@ -1,0 +1,10 @@
+syntax = "proto3";
+package src.domain.player;
+
+message PlayerEntity {
+    string id = 1;
+    string name = 2;
+    float height = 3;
+    int32 age = 4;
+    string country_id = 5;
+}

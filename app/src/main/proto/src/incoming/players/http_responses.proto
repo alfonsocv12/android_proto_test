@@ -1,0 +1,8 @@
+syntax = "proto3";
+package src.incoming.players.http_responses;
+
+import "src/domain/player.proto";
+
+message GetPlayers {
+    repeated src.domain.player.PlayerEntity players = 1;
+}
